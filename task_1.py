@@ -9,7 +9,7 @@ def input_error(func):
     def inner(args, kwargs):
         try:
             return func(args, kwargs)
-        except ValueError as error:
+        except ValueError:
             return 'For "add" and "change" give me name and phone.\n'\
                 'For "phone" give me name.\n'\
                 'For "all" give me no arguments.'
@@ -89,30 +89,30 @@ def get_all(args, contacts):
 
 def main():
     contacts = {}
-    print("Welcome to the assistant bot!")
+    print('Welcome to the assistant bot!')
     while True:
         try:
-            user_input = input("Enter a command: ")
+            user_input = input('Enter a command: ')
             command, *args = parse_input(user_input)
 
-            if command in ["close", "exit"]:
-                print("Goodbye!")
+            if command in ['close', 'exit']:
+                print('Goodbye!')
                 break
-            elif command == "hello":
-                print("How can I help you?")
-            elif command == "add":
+            elif command == 'hello':
+                print('How can I help you?')
+            elif command == 'add':
                 print(add_contact(args, contacts))
-            elif command == "change":
+            elif command == 'change':
                 print(change_contact(args, contacts))
-            elif command == "phone":
+            elif command == 'phone':
                 print(get_phone(args, contacts))
-            elif command == "all":
+            elif command == 'all':
                 print(get_all(args, contacts))
             else:
-                print("Invalid command.")   
+                print('Invalid command.')   
         except ValueError:
             print('Please use commands!')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

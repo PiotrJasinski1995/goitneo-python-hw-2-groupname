@@ -2,21 +2,6 @@ from collections import UserDict
 import re
 
 
-def input_error(func):
-    def inner(args, kwargs):
-        try:
-            return func(args, kwargs)
-        except ValueError:
-            return 'For "add" and "change" give me name and phone.\n'\
-                'For "phone" give me name.\n'\
-                'For "all" give me no arguments.'
-        except KeyError:
-            return 'Contact does not exists!'
-        except PhoneFormatException:
-            return 'Number should contain 10 digits!'
-    return inner
-
-
 class PhoneFormatException(Exception):
     pass
 
@@ -95,15 +80,17 @@ def main():
     jane_record = Record('Jane')
     jane_record.add_phone('9876543210')
     book.add_record(jane_record)
+    print(book)
 
     for record in book.data.values():
         print(record)
 
     john = book.find('John')
     john.edit_phone('5555555555', '1112223333')
-    print(john)  # Displaying: Contact name: John, phones: 1112223333; 5555555555
+    print(john)
+
     john.remove_phone('1112223333')
-    print(john)  # Displaying: Contact name: John, phones: 1112223333; 5555555555
+    print(john)
 
     found_phone = john.find_phone('1234567890')
     print(f"{john.name}: {found_phone}")  
